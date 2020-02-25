@@ -13,7 +13,6 @@ namespace Movie_Rental_System.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
-                        IsSubToNewsLetter = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

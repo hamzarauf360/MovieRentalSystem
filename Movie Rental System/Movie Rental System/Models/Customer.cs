@@ -11,5 +11,12 @@ namespace Movie_Rental_System.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public bool IsSubToNewsLetter { get; set; }
+
+        public MembershipType MembershipType { get; set; }
+
+        public byte MemberShipTypeId { get; set; }
+
     }
 }
