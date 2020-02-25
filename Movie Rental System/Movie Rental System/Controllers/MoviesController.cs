@@ -13,22 +13,18 @@ namespace Movie_Rental_System.Controllers
         // GET: Movies
         public ActionResult Random()
         {
-            var movie = new Movie()
+            var movie = new List<Movie>
             {
-                Name = "Shawshank"
+               new Movie{Name="Shawshank"},
+               new Movie{Name="Bad Boys"}
             };
 
-            var customers = new List<Customer>
-            {
-                new Customer {Name = "Customer1" },
-                new Customer {Name = "Customer2" }
-
-            };
+           
 
             var viewmodel = new RandomMovieViewModel()
             {
-                Movie = movie,
-                Customers = customers
+                Movies = movie,
+                Customers = null
 
 
             };

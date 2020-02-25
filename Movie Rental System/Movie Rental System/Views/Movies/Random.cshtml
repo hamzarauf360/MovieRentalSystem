@@ -1,31 +1,33 @@
 ﻿@model Movie_Rental_System.ViewModels.RandomMovieViewModel
 
 @{
-    ViewBag.Title = "Random Movie";
+    ViewBag.Title = "Movies";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Movie.Name</h2>
+<h1>Movies</h1>
 
-@if(Model.Customers.Count==0)
+
+@if (Model.Movies.Count == 0)
 {
-    <text> This Movie hasn't been alloted to anyone</text>
+    <text> There is no movie in database as of now</text>
 }
 
 else
 {
+    <table class="table">
 
-<ul>
+        <h2>Movie</h2>
 
-    @foreach (var customer in Model.Customers)
-    {
+        @foreach (var mov in Model.Movies)
+        {
+            <tr>
+                <td>
+                    @mov.Name
+                </td>
+            </tr>
+        }
 
-        <li>
-            @customer.Name
-        </li>
-    }
 
-
-</ul>
+    </table>
 }
-
