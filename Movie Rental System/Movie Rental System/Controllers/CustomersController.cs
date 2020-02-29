@@ -1,5 +1,6 @@
 ﻿using Movie_Rental_System.Models;
 using Movie_Rental_System.ViewModels;
+using System.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,47 +9,42 @@ using System.Web.Mvc;
 
 namespace Movie_Rental_System.Controllers
 {
-    
+
 
     public class CustomersController : Controller
     {
+        private ApplicationDbContext _context;
 
-      static List<Customer> custs = new List<Customer>
-            {
-               new Customer {Id=1,Name= "John Smith"},
-               new Customer {Id=2,Name="Mary Williams"}
-            };
-
-    RandomMovieViewModel viewmod = new RandomMovieViewModel
-    {
-        Customers = custs,
-        Movies = null
-    };
-// GET: Customers
-public ActionResult Index()
+        public CustomersController()
         {
-            
-
-
-            return View(viewmod);
+            _context = new ApplicationDbContext();
         }
 
-        [Route("Customers/Details/{Id}")]
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
+        // GET: Customers
+        public ActionResult Index()
+        {
+
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+
+            return View(customers);
+        }
+
         public ActionResult Details(int Id)
         {
-            string name="Not Found";
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == Id);
 
-            foreach (var cus in viewmod.Customers)
+            if (customer == null)
             {
-                if(Id==cus.Id)
-                {
-                    name = cus.Name;
-                    ViewBag.name = name;
-                    return View();
-                }
+                return HttpNotFound();
+
             }
 
-            return HttpNotFound();
+            return View(customer);
 
 
 
