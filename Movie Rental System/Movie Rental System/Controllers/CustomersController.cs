@@ -36,7 +36,7 @@ namespace Movie_Rental_System.Controllers
 
         public ActionResult Details(int Id)
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == Id);
+            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == Id);
 
             if (customer == null)
             {
