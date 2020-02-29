@@ -1,13 +1,15 @@
-﻿@model IEnumerable<Movie_Rental_System.Models.Customer>
+﻿
+@model IEnumerable<Movie_Rental_System.Models.Movie>
 @{
-    ViewBag.Title = "Customer";
+    ViewBag.Title = "Movies";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>Customers</h1>
+
+<h2>Movies</h2>
 
 @if (!Model.Any())
 {
-    <text>We don't have any customers yet </text>
+    <text>We don't have any Movies yet </text>
 
 }
 
@@ -17,26 +19,27 @@ else
         <thead>
             <tr>
                 <th>
-                    Customer
+                    Movie
 
                 </th>
                 <th>
-                   Membership Type
+                    Genre
                 </th>
             </tr>
         </thead>
 
-        @foreach (var cus in Model)
+        @foreach (var mov in Model)
         {
             <tr>
                 <td>
-                    @Html.ActionLink(cus.Name, "Details", "Customers", new { @Id = cus.Id }, null)
+                    @Html.ActionLink(mov.Name, "MovieDetails", "Movies", new { @Id = mov.Id }, null)
                 </td>
                 <td>
-                    @cus.MembershipType.Name
+                    @mov.Genre.Name
                 </td>
             </tr>
         }
 
     </table>
 }
+

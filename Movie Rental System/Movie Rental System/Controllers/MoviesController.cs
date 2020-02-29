@@ -1,6 +1,8 @@
 ﻿using Movie_Rental_System.Models;
 using Movie_Rental_System.ViewModels;
 using System;
+using System.Data.Entity;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,29 +12,42 @@ namespace Movie_Rental_System.Controllers
 {
     public class MoviesController : Controller
     {
-        // GET: Movies
-        public ActionResult Random()
+        private ApplicationDbContext _context;
+        
+
+        public MoviesController ()
         {
-            var movie = new List<Movie>
+            _context = new ApplicationDbContext();
+        }
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+        // GET: Movies
+        public ActionResult Index()
+        {
+
+            var movies = _context.Movies.Include(c => c.Genre).ToList();
+
+
+
+
+                 return View(movies);
+
+        }
+
+        public ActionResult MovieDetails(int Id)
+        {
+
+            var movie = _context.Movies.Include(c => c.Genre).SingleOrDefault(c => c.Id == Id);
+
+            if (movie == null)
             {
-               new Movie{Name="Shawshank"},
-               new Movie{Name="Bad Boys"}
-            };
+                return HttpNotFound();
 
-           
+            }
 
-            var viewmodel = new RandomMovieViewModel()
-            {
-                Movies = movie,
-                Customers = null
-
-
-            };
-
-
-
-                 return View(viewmodel);
-
+            return View(movie);
         }
 
     }
