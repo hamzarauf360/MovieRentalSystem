@@ -44,6 +44,16 @@ namespace Movie_Rental_System.Controllers
             return View(viewmodel);
         }
 
+        [HttpPost]
+        public ActionResult Create(Customer customer)
+        {
+            _context.Customers.Add(customer);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index","Customers");
+        }
+
         public ActionResult Details(int Id)
         {
             var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == Id);
