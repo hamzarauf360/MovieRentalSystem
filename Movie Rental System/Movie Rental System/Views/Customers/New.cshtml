@@ -1,4 +1,4 @@
-﻿@model Movie_Rental_System.Models.Customer
+﻿@model Movie_Rental_System.ViewModels.NewCustomerViewModel
 @{
     ViewBag.Title = "Add New Customer";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,19 +9,25 @@
 @using (Html.BeginForm("Create", "Customers"))
 {
     <div class="form-group">
-        @Html.LabelFor(c => c.Name)
-        @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
+        @Html.LabelFor(c => c.Customer.Name)
+        @Html.TextBoxFor(c => c.Customer.Name, new { @class = "form-control" })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(c => c.BirthDate)
-        @Html.TextBoxFor(c => c.BirthDate, new { @class = "form-control" })
+        @Html.LabelFor(c => c.Customer.BirthDate)
+        @Html.TextBoxFor(c => c.Customer.BirthDate, new { @class = "form-control" })
     </div>
 
     <div class="form-check">
         <label>
-            @Html.CheckBoxFor(c => c.IsSubToNewsLetter) Subscribed To Newsletter?
+            @Html.CheckBoxFor(c => c.Customer.IsSubToNewsLetter) Subscribed To Newsletter?
         </label>
-     </div>
-        }
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.MemberShipTypeId)
+        @Html.DropDownListFor(c => c.Customer.MemberShipTypeId,new SelectList(Model.MembershipTypes,"Id","Name"), "",new { @class = "form-control" })
+    </div>
+
+}
 

@@ -348,3 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/Movie Rental System/Movie Rental System/Migrations
