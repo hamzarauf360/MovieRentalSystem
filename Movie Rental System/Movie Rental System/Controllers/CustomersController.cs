@@ -41,13 +41,27 @@ namespace Movie_Rental_System.Controllers
             {
                 MembershipTypes = membershiptype
             };
-            return View(viewmodel);
+            return View("New",viewmodel);
         }
 
         [HttpPost]
         public ActionResult Create(Customer customer)
         {
-            _context.Customers.Add(customer);
+            if (customer.Id == 0)
+            {
+                _context.Customers.Add(customer);
+            }
+
+            else
+            {
+                var customerr = _context.Customers.Single(c=>c.Id==customer.Id);
+                customerr.Name = customer.Name;
+                customerr.BirthDate = customer.BirthDate;
+                customerr.MemberShipTypeId = customer.MemberShipTypeId;
+                customerr.IsSubToNewsLetter = customer.IsSubToNewsLetter;
+
+
+            }
 
             _context.SaveChanges();
 
@@ -66,8 +80,23 @@ namespace Movie_Rental_System.Controllers
 
             return View(customer);
 
+        }
 
+        public ActionResult Edit(int Id)
+        {
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == Id);
+            var viewmodel = new NewCustomerViewModel
+            {
+                Customer = customer,
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
 
+            if(customer==null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("New",viewmodel);
         }
 
     }
