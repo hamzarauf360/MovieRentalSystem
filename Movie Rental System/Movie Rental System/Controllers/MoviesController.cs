@@ -36,6 +36,17 @@ namespace Movie_Rental_System.Controllers
 
         }
 
+        public ActionResult New()
+        {
+            var genres = _context.Genres.ToList();
+            var viewmodel = new NewMovieViewModel
+            {
+                Genres = genres
+            };
+
+            return View("New",viewmodel);
+        }
+
         public ActionResult MovieDetails(int Id)
         {
 
