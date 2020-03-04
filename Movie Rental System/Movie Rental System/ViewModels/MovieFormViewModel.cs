@@ -6,11 +6,10 @@ using System.Web;
 
 namespace Movie_Rental_System.ViewModels
 {
-    public class RandomMovieViewModel
+    public class MovieFormViewModel
     {
-        public List<Movie>  Movies { get; set; }
-
-        public List<Customer> Customers { get; set; }
-
+        public IEnumerable<Genre> Genres { get; set; }
+        public Movie Movie { get; set; }
+       
     }
 }

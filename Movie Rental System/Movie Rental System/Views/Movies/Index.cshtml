@@ -1,53 +1,36 @@
-﻿
-@model IEnumerable<Movie_Rental_System.Models.Movie>
+﻿@model IEnumerable<Movie_Rental_System.Models.Movie>
+
 @{
     ViewBag.Title = "Movies";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Movies</h2>
-
-<div>
-
-    @Html.ActionLink("New Movie", "New", "Movies", null, new { @class = "btn btn-primary btn-large" })
-
-
-</div>
-<br />
-
-@if (!Model.Any())
+<p>
+    @Html.ActionLink("New Movie", "New", "Movies", null, new { @class = "btn btn-primary" })
+</p>
+@if(!Model.Any())
 {
-    <text>We don't have any Movies yet </text>
-
+    <text>We do not have any movies right now</text>
 }
-
-else
-{
-    <table class="table table-bordered table-hover">
-        <thead>
+else{
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Movie</th>
+            <th>Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+    {
             <tr>
-                <th>
-                    Movie
+                <td>@Html.ActionLink(movie.Name, "Edit", "Movies", new { id = movie.Id }, null)</td>
+                <td>@movie.Genre.Name</td>
 
-                </th>
-                <th>
-                    Genre
-                </th>
             </tr>
-        </thead>
 
-        @foreach (var mov in Model)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(mov.Name, "Edit", "Movies", new { @Id = mov.Id }, null)
-                </td>
-                <td>
-                    @mov.Genre.Name
-                </td>
-            </tr>
         }
-
-    </table>
+    </tbody>
+</table>
 }
-
