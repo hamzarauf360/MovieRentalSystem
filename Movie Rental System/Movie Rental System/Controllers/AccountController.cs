@@ -36,7 +36,7 @@ namespace Movie_Rental_System.Controllers
             }
             private set 
             { 
-                _signInManager = value; 
+                _signInManager = valuee; 
             }
         }
 
